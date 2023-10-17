@@ -1,0 +1,10 @@
+[package]
+name = "multiversx-wegld-swap-sc-meta"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+multiversx-sc-meta = "0.41.1"
+
+multiversx-wegld-swap-sc = { path = ".." }

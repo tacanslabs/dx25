@@ -1,0 +1,12 @@
+[package]
+name = "dx25-client-sc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+multiversx-sc = "0.41.1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+multiversx-sc-wasm-adapter = "0.41.1"
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+multiversx-sc-scenario = "0.41.1"

@@ -1,0 +1,80 @@
+{
+    "name": "dx25 deployment test",
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:client_wallet": {
+                    "nonce": "0",
+                    "balance": "1,000,000,000"
+                }
+            },
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:client_wallet",
+                    "creatorNonce": "0",
+                    "newAddress": "sc:dx25"
+                }
+            ]
+        },
+        {
+            "step": "scDeploy",
+            "txId": "deploy",
+            "tx": {
+                "from": "address:client_wallet",
+                "contractCode": "file:../output/dx25.wasm",
+                "arguments": [
+                    "address:client_wallet",
+                    "u16:10000",
+                    "u16:500|u16:600|u16:700|u16:800|u16:900|u16:1000|u16:1100|u16:1200"
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "0",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "scQuery",
+            "txId": "checkMetadata",
+            "comment": "Check contract metadata",
+            "tx": {
+                "to": "sc:dx25",
+                "function": "metadata",
+                "arguments": []
+            },
+            "expect": {
+                "out": [
+                    [
+                        "address:client_wallet",
+                        "u64:0",
+                        "u16:10000",
+                        "u16:500|u16:600|u16:700|u16:800|u16:900|u16:1000|u16:1100|u16:1200",
+                        "u16:10000"
+                    ]
+                ],
+                "status": ""
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "address:client_wallet": {
+                    "nonce": "1",
+                    "balance": "1,000,000,000",
+                    "storage": {}
+                },
+                "sc:dx25": {
+                    "nonce": "0",
+                    "balance": "0",
+                    "storage": "*",
+                    "code": "file:../output/dx25.wasm"
+                }
+            }
+        }
+    ]
+}

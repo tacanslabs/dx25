@@ -1,0 +1,72 @@
+[package]
+name = "dx25"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+
+[features]
+# Used only as markers, not intended to be enabled/disabled
+default = ["multiversx"]
+multiversx = []
+smartlib = [
+    "multiversx",
+    "serde/derive",
+]
+test-utils = ["dep:scopeguard"]
+smart-routing = ["multiversx"]
+
+[dependencies]
+array-init = "2.1.0"
+bitvec = "1.0.1"
+multiversx-sc = { version = "=0.41.3", features = ["alloc"] }
+multiversx-sc-codec = { version = "=0.17.2", features = [
+    "multiversx-sc-codec-derive",
+] }
+itertools = "0.10.5"
+num-traits = "0.2.15"
+paste = "1.0.9"
+thiserror = "1.0.31"
+typed-index-collections = "3.1.0"
+uint = { version = "0.9.3", default-features = false }
+serde = { version = "1.0.0", optional = true }
+strum = "0.24.1"
+static_assertions = "1.1.0"
+strum_macros = "0.24.3"
+multiversx-wegld-swap-sc = { path = "../wegld-swap" }
+scopeguard = { version = "1.1.0", optional = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+multiversx-sc-wasm-adapter = "=0.41.3"
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+multiversx-sc-scenario = "=0.41.3"
+rug = "1.18.0"
+
+[dependencies.softfloat-wrapper]
+git = "https://github.com/tacanslabs/softfloat-wrapper.git"
+rev = "b611f6a4f103955a38068f3013c4008053951f58"
+features = ["native-float"]
+
+[patch.crates-io]
+uint = { path = "../../vendored/uint" }
+
+[dev-dependencies]
+assert_matches = "1.5.0"
+float_extras = "0.1.6"
+rand = "0.8"
+scopeguard = "1.1.0"
+quickcheck = "1.0.3"
+rstest = "0.16.0"
+
+dx25-client-sc = { path = "../client-sc" }
+
+[build-dependencies.gen-source-files-list]
+path = "../../common/gen-source-files-list"
+
+[build-dependencies.ver-from-git]
+path = "../../common/ver-from-git"
+
+[profile.release]
+debug = false
+overflow-checks = true

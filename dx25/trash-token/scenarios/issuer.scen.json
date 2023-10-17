@@ -1,0 +1,99 @@
+{
+    "name": "trash-token",
+    "comment": "add then check",
+    "gasSchedule": "v3",
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "1",
+                    "balance": "0"
+                }
+            },
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:owner",
+                    "creatorNonce": "1",
+                    "newAddress": "sc:trash-token-issuer"
+                }
+            ]
+        },
+        {
+            "step": "scDeploy",
+            "id": "1",
+            "tx": {
+                "from": "address:owner",
+                "contractCode": "file:../output/dx25-trash-token.wasm",
+                "arguments": [
+                    "0"
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "",
+                "logs": "*",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "scQuery",
+            "id": "2",
+            "tx": {
+                "to": "sc:trash-token-issuer",
+                "function": "tokenId",
+                "arguments": []
+            },
+            "expect": {
+                "out": [
+                    ""
+                ],
+                "status": "",
+                "logs": []
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "3",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:trash-token-issuer",
+                "function": "mint",
+                "arguments": [
+                    "1,000,000"
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "",
+                "logs": "*",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "checkState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "*",
+                    "balance": "0",
+                    "storage": {},
+                    "code": ""
+                },
+                "sc:trash-token-issuer": {
+                    "nonce": "0",
+                    "balance": "0",
+                    "storage": {
+                        "str:sum": "8"
+                    },
+                    "code": "file:../output/dx25-trash-token.wasm"
+                }
+            }
+        }
+    ]
+}

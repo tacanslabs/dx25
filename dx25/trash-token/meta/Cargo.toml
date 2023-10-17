@@ -1,0 +1,9 @@
+[package]
+name = "dx25-trash-token-meta"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+multiversx-sc-meta = "0.41.1"
+
+dx25-trash-token = { path = ".." }

@@ -1,0 +1,8 @@
+[package]
+name = "dx25-trash-token"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hex-literal = "0.4.1"
+multiversx-sc = "0.41.1"

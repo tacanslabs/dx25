@@ -1,0 +1,13 @@
+[settings]
+main = "dx25"
+
+# the only purpose of this config is to specify the allocator
+[contracts.dx25]
+add-unlabelled = true
+allocator = "static64k"
+
+[contracts.view]
+name = "dx25-contract-view"
+external-view = true
+add-labels = ["dx25-contract-view"]
+allocator = "static64k"

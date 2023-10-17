@@ -1,0 +1,13 @@
+[package]
+name = "dx25-meta"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+multiversx-sc-meta = "0.41.3"
+
+dx25 = { path = ".." }
+
+[patch.crates-io]
+uint = { path = "../../../vendored/uint" }
